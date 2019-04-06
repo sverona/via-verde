@@ -1,0 +1,30 @@
+<% require 'uri' %>
+
+<% month, day, year, title, asset_id = strip %>
+<% date = Time.new(year.to_i, month.to_i, day.to_i) %>
+<% url = "https://achewood.com/index.php?date=#{month + day + year}" %>
+
+<span id="strip-title" class="own-line"> <%= title %> </span>
+<span id="strip-subtitle" class="own-line"> <%= date.strftime "%A, %B %-d, %Y"%> &bull; <a href="<%= url %>">read strip</a></span>
+<span class="own-line">Viewing <%= comments.length %> comments:</span>
+
+<% stack = [] %>
+<% count = 0 %>
+<% comments.each do |comment| %>
+  <% while stack.last and (stack.last["depth"] >= comment["depth"]) %>
+<%="\t" * stack.last["depth"]%> </div>
+    <% stack.pop %>
+  <% end %>
+  <div class="comment hideable own-line" id="comment-<%= count %>" data-a11y-toggle-open>
+    <span class="toggle" role="button" tabindex="0" data-a11y-toggle="comment-<%= count %>"></span>
+    <span class="metadata">
+     <b><%= comment["name"] %></b>
+     <span class="plus">+<%= comment["plus"] %></span> <span class="minus">-<%= comment["minus"] %></span>
+    </span>
+    <br />
+    <span class="comment-text hideable<%= comment["snip"] ? " snip" : "" %>">
+      <%= comment["text"] %>
+    </span>
+  <% stack << comment %>
+  <% count += 1 %>
+<% end %>

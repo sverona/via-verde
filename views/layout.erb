@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/renner" type="text/css"/>
+        <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/linux-libertine" type="text/css"/>
+
+        <link rel="stylesheet" media="screen" href="<%= url('/style.css') %>" type="text/css" />
+        <script src="<%= url('/a11y-toggle.min.js') %>"></script>
+    </head>
+    <body>
+        <div id="header">
+            <span id="page-title" class="own-line">11 Via Verde</span>
+            <span id="page-subtitle" class="own-line">A companion to Chris Onstad's <a href="https://www.achewood.com/"><i>Achewood</i></a></span>
+        </div>
+        <div id="menu">
+            <ul>
+                <li><a href="/strips">Strips</a></li>
+                <li><a href="/blogs">Blogs</a></li>
+                <li><a href="/timeline">Timeline</a></li>
+                <li><s>Concordance</s></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+        <div id="content">
+          <%= yield %>
+        </div>
+    </body>
+</html>
