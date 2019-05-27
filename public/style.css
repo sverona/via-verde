@@ -5,23 +5,28 @@
  ***/
 
 /* Typefaces */
-body { font-family: RennerBook; }
-#page-title, #strip-title { font-family: RennerMedium; }
-.subtitle { font-family: RennerBookItalic; }
+body { font-family: Verdana, RennerBook, sans-serif; }
+#page-title, #strip-title { font-family: RennerMedium, sans-serif; }
+.subtitle { font-family: RennerBookItalic, sans-serif; }
 .comment-text { font-family: Verdana, sans-serif; }
 .snip { font-style: oblique; }
 
-/* Sizing */
-body { font-size: 13px; }
+h1, h2, h3, h4, h5, h6 {
+    font-family: RennerMedium, sans-serif;
+    font-weight: 400;
+}
 
-.metadata { font-size: .75rem; }
-.toggle { font-size: .625rem; }
+/* Sizing */
+html { font-size: 12px; }
+
+.metadata { font-size: .875rem; }
+.toggle { font-size: .875rem; }
 
 #menu { font-size: 1rem; }
 #page-title { font-size: 3rem; }
 #strip-title { font-size: 2rem; line-height: 2.5rem; }
 #page-subtitle, #strip-subtitle { font-size: 1rem; }
-.comment-text { font-size: .75rem; line-height: 1rem; }
+.comment-text { font-size: 1rem; line-height: 1.25rem; }
 
 /***
  * Layout
@@ -37,7 +42,7 @@ body > div {
     border-left: .125rem solid;
     margin-bottom: 1rem;
 }
-#content { max-width: 79ch; }
+#content { max-width: 60ch; }
 
 /* Horizontal ul stuff */
 #menu ul { margin: 0; padding: 0; }
@@ -53,6 +58,7 @@ body > div {
 body > div { border-left-color: #9c0; }
 .plus { color: #0a0; }
 .minus { color: #a00; }
+.toggle { color: #ccc; }
 
 /********* PAGE-SPECIFIC STYLES *********/
 
@@ -121,9 +127,145 @@ span[role='button']::before { content: '[hide]'; }
 /********* MOBILE STYLES *********/
 @media screen and (max-width: 800px) {
     body {font-size: 12px;}
-    div#header, div#content, div#menu {
+    body > div {
         width: calc(100% - 2.125rem);
         margin-left: 1rem;
     }
 }
 
+.feed, .date-labels {
+    float: left;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+}
+
+.feed-title {
+    height: 1rem;
+    padding: .5rem;
+}
+
+.feed::after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    background-color: #000;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -0.5px;
+    z-index: -1;
+}
+
+.feed > hr {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-bottom: 0;
+    border-color: #fff;
+}
+
+.feed-item {
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: 8px;
+    height: 0;
+    width: 0;
+    position: absolute;
+    left: 50%;
+    margin-left: -9px;
+}
+
+
+.feed-item-text {
+    display: inline-block;
+    visibility: collapse;
+    width: auto;
+    padding: 1rem;
+    background-color: #eee;
+    margin-top: -8px;
+}
+
+.date-labels {
+    width: 100px;
+    min-width: 100px;
+    line-height: 1.5rem;
+}
+
+.date-label {
+    margin-top: -.75rem;
+    text-transform: small-caps;
+}
+
+.left {
+    margin-left: 1rem;
+}
+
+.right {
+    margin-right: 1rem;
+}
+
+.feed-item:hover {
+    z-index: 1;
+    background-color: #9c0;
+}
+
+.feed-item:hover > .feed-item-text {
+    visibility: visible;
+    min-width: 10rem;
+}
+
+.spacer {
+    height: 10px;
+}
+
+.feed-item-title {
+    margin: .5rem 0;
+    font-size: 1.25rem;
+
+    font-weight: bold;
+}
+
+#blogs-table {
+    border: 0;
+}
+
+#blogs-table td {
+    width: 7rem;
+    padding: 0;
+}
+
+#blogs-table th {
+    font-size: 1rem;
+    width: 7rem;
+    padding: .5rem;
+}
+
+th {
+    padding: .5rem;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    z-index: 1;
+}
+
+.post-title {
+    font-size: .75rem;
+}
+
+.post-updated-time {
+    font-size: .5rem;
+    color: #888;
+}
+
+h1 {
+    margin: 2rem 0 0 0;
+}
+
+h1:first-child {
+    margin-top: .5rem;
+}

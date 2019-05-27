@@ -1,11 +1,16 @@
 <table id="strips-table">
+  <thead>
+    <th>Date</th>
+    <th>Strip</th>
+    <th>Assetbar</th>
+  </thead>
 <% strips[1..-1].each do |month, day, year, title, assetbar| %>
   <% date = month + day + year %>
   <tr> 
     <td><%= Date.strptime(date, '%m%d%Y') %> </td>
     <td> <a href="https://www.achewood.com/index.php?date=<%=date%>" target="_blank"><%= title %></a></td>
     <td> <% if assetbar %>
-           <a href="assetbar/<%= assetbar %>/" target="_blank">Assetbar</a>
+        <a href="<%= url "/assetbar/#{assetbar}/" %>" target="_blank">Assetbar</a>
          <% end %>
     </td>
   </tr>

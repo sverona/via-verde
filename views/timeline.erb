@@ -1,18 +1,51 @@
+<% stripdates = strips[1..-1].map { |m, d, y, t, a| Date.new(y.to_i, m.to_i, d.to_i) } %>
+<% feeds_by_date = feeds.map { |feed| feed.items }.flatten.group_by { |item| item.updated.content.to_date } %>
+<% feeddates = feeds_by_date.keys %>
+<% mindate = [stripdates.min, feeddates.min].min %>
+<% maxdate = [stripdates.max, feeddates.max].max %>
 <table id="strips-table">
-  <% 3.times do %>
-  <tr>
-    <td>2008-03-15</td>
-    <td><a href="#">Strip</a> (<a href="#">Assetbar</a>)</td>
-    <td>
-      <ul>
-      <% 3.times do %>
-        <li>
-          author | blog | time <br/>
-          <a href="#">post</a>
-        </li>
-      <% end %>
-      </ul>
-    </td>
-  </tr>
+  <thead>
+    <th>Date</th>
+    <th>Strips</th>
+    <th>Assetbar</th>
+    <th>Blogs</th>
+  </thead>
+  <% (mindate..maxdate).each do |date| %>
+    <% strips_for_date = strips[1..-1].find { |m, d, y, t, a| Date.new(y.to_i, m.to_i, d.to_i) == date } %>
+    <% blogs_for_date = feeds_by_date[date] %>
+    <% if strips_for_date or blogs_for_date %>
+      <tr>
+        <td><%= date.strftime "%x" %></td>
+        <td>
+          <% if strips_for_date %>
+            <% m, d, y, t, a = strips_for_date %>
+            <a href="https://www.achewood.com/index.php?date=<%= m + d + y %>"><%= t %></a>
+          <% end %>
+        </td>
+        <td>
+          <% if strips_for_date %>
+            <a href="<%= url "/assetbar/#{strips_for_date.last}/" %>">Assetbar</a></td>
+          <% end %>
+        </td>
+        <td>
+          <% if blogs_for_date %>
+            <ul>
+              <% blogs_for_date.sort_by {|blog| blog.updated.content }.each do |blog| %>
+                <li>
+                  <span class="post-title">
+                    <%= blog.parent.title.content %>
+                  </span>
+                  <span class="post-updated-time">
+                    <%= blog.updated.content.strftime "%X" %>
+                  </span>
+                  <br />
+                  <a href="<%= blog.links.find {|link| link.rel == 'alternate' }.href %>"><%= blog.title.content %></a>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
   <% end %>
 </table>

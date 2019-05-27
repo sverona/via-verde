@@ -1,0 +1,41 @@
+<table id="blogs-table">
+  <thead>
+    <% feeds.each do |feed| %>
+      <th>
+        <%= feed.title.content %>
+      </th>
+    <% end %>
+    <th></th>
+  </thead>
+
+  <tr>
+<% feeds.each do |feed| %>
+  <td>
+    <div class="feed" style="height: <%= height + 5 %>px;">
+      <% keydates.each do |date| %>
+        <hr style="top: <%= height * (date.to_time - mindate) / (maxdate - mindate) %>px;" />
+      <% end %>
+      <% feed.items.each do |item| %>
+        <a href="<%= item.links.find {|link| link.rel == 'alternate' }.href %>" target="_blank" class="feed-item" tabindex="0" style="top: <%= height * ((item.updated.content - mindate)/(maxdate - mindate) )%>px;">
+          <div class="feed-item-text left">
+            <span class="feed-item-title"><%= item.title.content %></span>
+            <br />
+            <%= item.updated.content.strftime "%r %D" %>
+            <p><%= item.content.to_s.gsub(/<^[>]>/,'').match(/^.{0,100}\b/) %>[&hellip;]</p>
+          </div>
+        </a>
+      <% end %>
+    </div>
+  </td>
+<% end %>
+  <td>
+    <div class="date-labels" style="height: <%= height + 5 %>px;">
+      <% keydates.each do |date| %>
+        <span class="date-label" style="position: absolute; top: <%= height * (date.to_time - mindate) / (maxdate - mindate) %>px;">
+          <%= date.strftime "%B %Y" %>
+        </span>
+      <% end %>
+    </div>
+  </td>
+  </tr>
+</table>

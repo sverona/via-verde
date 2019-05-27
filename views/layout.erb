@@ -13,12 +13,15 @@
         </div>
         <div id="menu">
             <ul>
-                <li><a href="/strips">Strips</a></li>
-                <li><a href="/blogs">Blogs</a></li>
-                <li><a href="/timeline">Timeline</a></li>
+                <li><a href="<%= url('/') %>">Home</a></li>
+                <li><a href="<%= url('/strips/') %>">Strips</a></li>
+                <li><a href="<%= url('/blogs/') %>">Blogs</a></li>
+                <li><a href="<%= url('/timeline/') %>">Timeline</a></li>
                 <li><s>Concordance</s></li>
-                <li><a href="/about">About</a></li>
             </ul>
+        </div>
+        <div id="disclaimer">
+          If you appreciate Achewood, please support Chris Onstad (<a href="https://achewood.myshopify.com/">shop</a>; <a href="https://achewoodgallery.wordpress.com/originals/">gallery art</a>.)
         </div>
         <div id="content">
           <%= yield %>
